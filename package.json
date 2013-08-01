@@ -1,0 +1,17 @@
+{
+  "name": "sproutid",
+  "description": "merging uris into tree",
+  "version": "0.0.1",
+  "private": false,
+  "main": "./lib/sproutid.js",
+  "author": "Tyler Parker and Gregory Thompson",
+  "keywords": ["json", "uri"],
+  "dependencies": {
+    "underscore": "latest"
+  },
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/GTDev87/sproutid.git"
+  },
+  "engines": { "node": "*" }
+}
