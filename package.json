@@ -3,15 +3,33 @@
   "description": "merging uris into tree",
   "version": "0.0.1",
   "private": false,
-  "main": "./lib/sproutid.js",
+  "main": "./src/sproutid.js",
   "author": "Tyler Parker and Gregory Thompson",
-  "keywords": ["json", "uri"],
+  "keywords": [
+    "json",
+    "uri"
+  ],
   "dependencies": {
     "underscore": "latest"
   },
-  "repository" : {
+  "devDependencies": {
+    "jasmine-node": "latest",
+    "grunt": "latest",
+    "deamdify": "latest",
+    "decomponentify": "latest",
+    "deglobalify": "latest",
+    "grunt-browserify": "latest",
+    "bower": "latest",
+    "grunt-contrib-jasmine": "latest",
+    "grunt-template-jasmine-requirejs": "latest",    
+    "grunt-jasmine-node": "latest",
+    "debowerify": "latest"
+  },
+  "repository": {
     "type": "git",
     "url": "https://github.com/GTDev87/sproutid.git"
   },
-  "engines": { "node": "*" }
+  "engines": {
+    "node": "*"
+  }
 }

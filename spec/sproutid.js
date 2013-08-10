@@ -1,7 +1,7 @@
 /*jslint nomen: true */
 'use strict';
 
-var sproutId = require('../lib/sproutid'),
+var sproutId = require('../src/sproutid.js'),
 	urlArray,
 	colNames;
 

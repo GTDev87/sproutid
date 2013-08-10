@@ -1,13 +1,13 @@
 /*jslint nomen: true */
 'use strict';
 
-var _ = require('underscore');
+var _ = require("underscore");
 
-exports.uriTree = function (uriArray, columnNameArray) {
+function headTail(array) {return [_.first(array), "/" + _.tail(array).join('/')]; }
 
-	function headTail(array) {return [_.first(array), "/" + _.tail(array).join('/')]; }
+function separateUriHeadAndTail(uri) {return headTail(uri.slice(1).split("/")); }
 
-	function separateUriHeadAndTail(uri) {return headTail(uri.slice(1).split("/")); }
+function uriTree(uriArray, columnNameArray) {
 
 	function combineArrayLocationLabels(locationLabelArray) {
 		return _.reduce(
@@ -23,7 +23,6 @@ exports.uriTree = function (uriArray, columnNameArray) {
 		);
 	}
 
-	//private functions
 	function uriLabelsIntoColumnTree(uriLabelsObject) {
 		var uriArrayTree,
 			locationLabelArray;
@@ -69,3 +68,14 @@ exports.uriTree = function (uriArray, columnNameArray) {
 
 	return uriLabelsIntoColumnTree(_.object(uriArray, columnNameArray));
 };
+
+module.exports = {
+	name: "sproutid",
+	version: "0.0.1",
+	headTail: headTail,
+	separateUriHeadAndTail: separateUriHeadAndTail,
+	uriTree: uriTree
+};
+
+
+
