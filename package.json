@@ -20,7 +20,6 @@
     "decomponentify": "latest",
     "deglobalify": "latest",
     "grunt-browserify": "latest",
-    "bower": "latest",
     "grunt-contrib-jasmine": "latest",
     "grunt-template-jasmine-requirejs": "latest",
     "grunt-jasmine-node": "latest",

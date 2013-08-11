@@ -8,10 +8,10 @@
 init(this, function (sproutid) {
     'use strict';
 
-    describe("sproutid", function () {
-        it("shoudl run", function () {
-            var urlArray, colNames;
+    describe("uriTree", function () {
+        var urlArray, colNames;
 
+        beforeEach(function () {
             urlArray = [
                 '/*/user/name',
                 '/*/user/id',
@@ -31,16 +31,30 @@ init(this, function (sproutid) {
                 "url",
                 "follower count"
             ];
+        });
 
-            console.log("urlArray = %j", urlArray);
-            console.log("colNames = %j", colNames);
+        it("should create a labeled uri tree", function () {
+            var labeledUriTree = sproutid.uriTree(urlArray, colNames);
 
-            console.log("sproutid.uriTree(urlArray, colNames)");
-            console.log(sproutid.uriTree(urlArray, colNames));
+            expect(labeledUriTree['*'].user.name).toBe('name');
+            expect(labeledUriTree['*'].user.id).toBe('user id');
+            expect(labeledUriTree['*'].user.lang).toBe('language');
+            expect(labeledUriTree['*'].text).toBe('text');
+            expect(labeledUriTree['*'].id).toBe('twitter id');
+            expect(labeledUriTree['*'].url).toBe('url');
+            expect(labeledUriTree['*'].followers_count).toBe('follower count');
+        });
 
-            console.log("2 sproutid.uriTree(urlArray, colNames)");
-            console.log(sproutid.uriTree(urlArray));
+        it("should create a labeled uri tree", function () {
+            var unlabeledUriTree = sproutid.uriTree(urlArray);
 
+            expect(unlabeledUriTree['*'].user.name).toBe(1);
+            expect(unlabeledUriTree['*'].user.id).toBe(1);
+            expect(unlabeledUriTree['*'].user.lang).toBe(1);
+            expect(unlabeledUriTree['*'].text).toBe(1);
+            expect(unlabeledUriTree['*'].id).toBe(1);
+            expect(unlabeledUriTree['*'].url).toBe(1);
+            expect(unlabeledUriTree['*'].followers_count).toBe(1);
         });
     });
 });
