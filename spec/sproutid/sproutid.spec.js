@@ -3,9 +3,10 @@
 /*global beforeEach, afterEach, describe, it, expect */
 
 /*global console */
-/*global init */
+/*global debugger */
+/*global dependencies */
 
-init(this, function (sproutid) {
+dependencies({'sproutid' : '../../build/sproutid'}).init(this, function (sproutid) {
     'use strict';
 
     describe("uriTree", function () {
@@ -45,7 +46,7 @@ init(this, function (sproutid) {
             expect(labeledUriTree['*'].followers_count).toBe('follower count');
         });
 
-        it("should create a labeled uri tree", function () {
+        it("should create a unlabeled uri tree", function () {
             var unlabeledUriTree = sproutid.uriTree(urlArray);
 
             expect(unlabeledUriTree['*'].user.name).toBe(1);
@@ -55,6 +56,28 @@ init(this, function (sproutid) {
             expect(unlabeledUriTree['*'].id).toBe(1);
             expect(unlabeledUriTree['*'].url).toBe(1);
             expect(unlabeledUriTree['*'].followers_count).toBe(1);
+        });
+    });
+
+    describe("headTail", function () {
+        it("should split array of uri parts", function () {
+            var headTailPair = sproutid.headTail(['twitter', 'user', 'greg', 'id']),
+                head = headTailPair[0],
+                tail = headTailPair[1];
+
+            expect(head).toBe('twitter');
+            expect(tail).toBe('/user/greg/id');
+        });
+    });
+
+    describe("separateUriHeadAndTail", function () {
+        it("should split uri head from tail", function () {
+            var headTailPair = sproutid.separateUriHeadAndTail('/twitter/user/greg/id'),
+                head = headTailPair[0],
+                tail = headTailPair[1];
+
+            expect(head).toBe('twitter');
+            expect(tail).toBe('/user/greg/id');
         });
     });
 });
