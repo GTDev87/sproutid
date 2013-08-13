@@ -30,8 +30,6 @@ function dependencies(dependencyObject) {
     return { init: init };
 }
 
-
-
 if (typeof module === 'object' && module.exports) {
     // Node/CommonJS
     exports.dependencies = dependencies;
