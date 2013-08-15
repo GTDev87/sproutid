@@ -12,50 +12,60 @@ dependencies({'sproutid' : '../../build/sproutid'}).init(this, function (sprouti
     describe("uriTree", function () {
         var urlArray, colNames;
 
-        beforeEach(function () {
-            urlArray = [
-                '/*/user/name',
-                '/*/user/id',
-                '/*/user/lang',
-                '/*/text',
-                '/*/id',
-                '/*/url',
-                '/*/followers_count'
-            ];
+        urlArray = [
+            '/*/user/name',
+            '/*/user/id',
+            '/*/user/lang',
+            '/*/text',
+            '/*/id',
+            '/*/url',
+            '/*/followers_count'
+        ];
 
-            colNames = [
-                "name",
-                "user id",
-                "language",
-                "text",
-                "twitter id",
-                "url",
-                "follower count"
-            ];
-        });
+        colNames = [
+            "name",
+            "user id",
+            "language",
+            "text",
+            "twitter id",
+            "url",
+            "follower count"
+        ];
 
         it("should create a labeled uri tree", function () {
             var labeledUriTree = sproutid.uriTree(urlArray, colNames);
 
-            expect(labeledUriTree['*'].user.name).toBe('name');
-            expect(labeledUriTree['*'].user.id).toBe('user id');
-            expect(labeledUriTree['*'].user.lang).toBe('language');
-            expect(labeledUriTree['*'].text).toBe('text');
-            expect(labeledUriTree['*'].id).toBe('twitter id');
-            expect(labeledUriTree['*'].url).toBe('url');
-            expect(labeledUriTree['*'].followers_count).toBe('follower count');
+            expect(labeledUriTree).toEqual({
+                '*': {
+                    user: {
+                        name: 'name',
+                        id : 'user id',
+                        lang : 'language'
+                    },
+                    text: 'text',
+                    id : 'twitter id',
+                    url : 'url',
+                    followers_count: 'follower count'
+                }
+            });
         });
 
         it("should create a unlabeled uri tree", function () {
             var unlabeledUriTree = sproutid.uriTree(urlArray);
 
-            expect(unlabeledUriTree['*'].user.name).toBe(1);
-            expect(unlabeledUriTree['*'].user.id).toBe(1);
-            expect(unlabeledUriTree['*'].user.lang).toBe(1);
-            expect(unlabeledUriTree['*'].text).toBe(1);
-            expect(unlabeledUriTree['*'].id).toBe(1);
-            expect(unlabeledUriTree['*'].url).toBe(1);
-            expect(unlabeledUriTree['*'].followers_count).toBe(1);
+            expect(unlabeledUriTree).toEqual({
+                '*': {
+                    user: {
+                        name: 1,
+                        id: 1,
+                        lang: 1
+                    },
+                    text: 1,
+                    id: 1,
+                    url: 1,
+                    followers_count: 1
+                }
+            });
         });
     });
 
@@ -78,6 +88,58 @@ dependencies({'sproutid' : '../../build/sproutid'}).init(this, function (sprouti
 
             expect(head).toBe('twitter');
             expect(tail).toBe('/user/greg/id');
+        });
+    });
+
+    describe("separateUriHeadAndTail", function () {
+        var arrayHeadTailSplits = [
+            [ 'user', [ '/name', 'name' ] ],
+            [ 'user', [ '/id', 'user id' ] ],
+            [ 'user', [ '/lang', 'language' ] ],
+            [ 'text', [ '/', 'text' ] ],
+            [ 'id', [ '/', 'twitter id' ] ],
+            [ 'url', [ '/', 'url' ] ],
+            [ 'followers_count', [ '/', 'follower count' ] ]
+        ];
+
+        it("should should join head tail splits by head element", function () {
+            var headTailSplitObj = sproutid.combineArrayLocationLabels(arrayHeadTailSplits);
+
+            expect(headTailSplitObj).toEqual({
+                user: [['/name', 'name'], ['/id', 'user id'], ['/lang', 'language']],
+                text: [[ '/', 'text' ]],
+                id: [[ '/', 'twitter id' ]],
+                url: [[ '/', 'url' ]],
+                followers_count: [['/', 'follower count']]
+            });
+        });
+    });
+
+    describe("uriLabelsIntoColumnTree", function () {
+        var uriLabelObject = {
+            '/user/name': "name",
+            '/user/id': "user id",
+            '/user/lang': "language",
+            '/text': "text",
+            '/id': "twitter id",
+            '/url': "url",
+            '/followers_count': "follower count"
+        };
+
+        it("should turn uri label object into a labeld uri tree", function () {
+            var labeledUriTree = sproutid.uriLabelsIntoColumnTree(uriLabelObject);
+
+            expect(labeledUriTree).toEqual({
+                user: {
+                    name: 'name',
+                    id : 'user id',
+                    lang : 'language'
+                },
+                text: 'text',
+                id : 'twitter id',
+                url : 'url',
+                followers_count: 'follower count'
+            });
         });
     });
 });

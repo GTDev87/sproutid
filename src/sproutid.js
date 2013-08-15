@@ -21,12 +21,10 @@ function combineArrayLocationLabels(locationLabelArray) {
     );
 }
 
-
-
 function uriLabelsIntoColumnTree(uriLabelsObject) {
     var uriArrayTree, locationLabelArray;
 
-    locationLabelArray = _.chain(uriLabelsObject)
+    locationLabelArray = _(uriLabelsObject)
         .pairs()
         .map(function (uriLabel) {
             var uri = uriLabel[0],
@@ -36,12 +34,11 @@ function uriLabelsIntoColumnTree(uriLabelsObject) {
             headTail = separateUriHeadAndTail(uri);
 
             return [headTail[0], [headTail[1], label]];
-        })
-        .value();
+        });
 
     uriArrayTree = combineArrayLocationLabels(locationLabelArray);
 
-    return _.chain(uriArrayTree)
+    return _(uriArrayTree)
         .pairs()
         .reduce(
             function (aggTree, locationUriArray) {
@@ -57,8 +54,7 @@ function uriLabelsIntoColumnTree(uriLabelsObject) {
                 return aggTree;
             },
             {}
-        )
-        .value();
+        );
 }
 
 function uriTree(uriArray, columnNameArray) {
