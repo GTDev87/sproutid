@@ -6,7 +6,14 @@
 /*global debugger */
 /*global dependencies */
 
-dependencies({'sproutid' : '../../build/sproutid'}).init(this, function (sproutid) {
+
+dependencies({
+    'sproutid': {
+        'AMD': '../../build/sproutid',
+        'CommonJS': '../../src/sproutid',
+        'Global': '../../build/sproutid'
+    }
+}).init(this, function (sproutid) {
     'use strict';
 
     describe("uriTree", function () {
@@ -91,7 +98,7 @@ dependencies({'sproutid' : '../../build/sproutid'}).init(this, function (sprouti
         });
     });
 
-    describe("separateUriHeadAndTail", function () {
+    describe("combineArrayLocationLabels", function () {
         var arrayHeadTailSplits = [
             [ 'user', [ '/name', 'name' ] ],
             [ 'user', [ '/id', 'user id' ] ],

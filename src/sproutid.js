@@ -1,7 +1,7 @@
 /*jslint node: true, nomen: true */
 'use strict';
 
-var _ = require("underscore");
+var _ = require("lodash");
 
 function headTail(array) {return [_.first(array), "/" + _.tail(array).join('/')]; }
 
@@ -24,21 +24,23 @@ function combineArrayLocationLabels(locationLabelArray) {
 function uriLabelsIntoColumnTree(uriLabelsObject) {
     var uriArrayTree, locationLabelArray;
 
-    locationLabelArray = _(uriLabelsObject)
+    locationLabelArray = _.chain(uriLabelsObject)
         .pairs()
         .map(function (uriLabel) {
             var uri = uriLabel[0],
                 label = uriLabel[1],
                 headTail;
+
             if (uri[0] !== '/') {throw "no slash"; }
             headTail = separateUriHeadAndTail(uri);
 
             return [headTail[0], [headTail[1], label]];
-        });
+        })
+        .value();
 
     uriArrayTree = combineArrayLocationLabels(locationLabelArray);
 
-    return _(uriArrayTree)
+    return _.chain(uriArrayTree)
         .pairs()
         .reduce(
             function (aggTree, locationUriArray) {
@@ -60,7 +62,7 @@ function uriLabelsIntoColumnTree(uriLabelsObject) {
 function uriTree(uriArray, columnNameArray) {
 
     if (columnNameArray === undefined) {
-        columnNameArray = _(uriArray.length).times(function () {return 1; });
+        columnNameArray = _.times(uriArray.length, function () {return 1; });
     }
 
     return uriLabelsIntoColumnTree(_.object(uriArray, columnNameArray));

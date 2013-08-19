@@ -35,8 +35,6 @@ module.exports = function (grunt) {
             }
         },
         jasmine_node: {
-            specNameMatcher: "spec",
-            projectRoot: ".",
             useHelpers: true
         },
         browserify: {
@@ -44,7 +42,6 @@ module.exports = function (grunt) {
                 src: './src/sproutid.js',
                 dest: './build/sproutid.js',
                 options: {
-                    transform: ['debowerify', 'decomponentify', 'deamdify', 'deglobalify'],
                     standalone: "sproutid"
                 },
             },
