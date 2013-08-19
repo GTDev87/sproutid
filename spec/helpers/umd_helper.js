@@ -24,11 +24,11 @@ function dependencies(dependencyObject) {
         if (typeof module === 'object' && module.exports) {
             // Node/CommonJS
             console.log("NODE MODE");
-            factory.apply(root, depPaths.map(function (depPath) {return require(extractSpecificPath(depPath, 'CommonJS')); }));
+            factory.apply(root, depPaths.map(function (depPath) {return require(extractSpecificPath(depPath, 'node')); }));
         } else if (typeof define === 'function' && define.amd) {
             // AMD
             console.log("AMD MODE");
-            define(depPaths.map(function (depPath) { return extractSpecificPath(depPath, 'AMD'); }), factory);
+            define(depPaths.map(function (depPath) { return extractSpecificPath(depPath, 'browser'); }), factory);
         } else {
             // Browser globals
             console.log("GLOBALS MODE");

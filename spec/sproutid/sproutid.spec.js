@@ -9,9 +9,8 @@
 
 dependencies({
     'sproutid': {
-        'AMD': '../../build/sproutid',
-        'CommonJS': '../../src/sproutid',
-        'Global': '../../build/sproutid'
+        'browser': '../../build/sproutid',
+        'node': '../../src/sproutid'
     }
 }).init(this, function (sproutid) {
     'use strict';
