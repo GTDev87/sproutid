@@ -56,6 +56,33 @@ dependencies({
             });
         });
 
+        it("should use other delimiter", function () {
+            var urlArrayNewDelimiter = [
+                    '.*.user.name',
+                    '.*.user.id',
+                    '.*.user.lang',
+                    '.*.text',
+                    '.*.id',
+                    '.*.url',
+                    '.*.followers_count'
+                ],
+                labeledUriTree = sproutid.options({delimiter: "."}).uriTree(urlArrayNewDelimiter, colNames);
+
+            expect(labeledUriTree).toEqual({
+                '*': {
+                    user: {
+                        name: 'name',
+                        id : 'user id',
+                        lang : 'language'
+                    },
+                    text: 'text',
+                    id : 'twitter id',
+                    url : 'url',
+                    followers_count: 'follower count'
+                }
+            });
+        });
+
         it("should create a unlabeled uri tree", function () {
             var unlabeledUriTree = sproutid.uriTree(urlArray);
 
