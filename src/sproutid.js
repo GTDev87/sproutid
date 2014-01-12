@@ -33,12 +33,12 @@ function optionsFn(options) {
             .map(function (uriLabel) {
                 var uri = uriLabel[0],
                     label = uriLabel[1],
-                    headTail;
+                    headTailSep;
 
                 if (uri[0] !== delimiter) {throw "no slash"; }
-                headTail = separateUriHeadAndTail(uri);
+                headTailSep = separateUriHeadAndTail(uri);
 
-                return [headTail[0], [headTail[1], label]];
+                return [headTailSep[0], [headTailSep[1], label]];
             })
             .value();
 
@@ -55,7 +55,8 @@ function optionsFn(options) {
                     return aggTree;
                 },
                 {}
-            );
+            )
+            .value();
     }
 
     function uriTree(uriArray, columnNameArray) {

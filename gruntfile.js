@@ -43,9 +43,9 @@ module.exports = function (grunt) {
                 dest: './build/sproutid.js',
                 options: {
                     standalone: "sproutid"
-                },
-            },
-        },
+                }
+            }
+        }
     });
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-browserify');
